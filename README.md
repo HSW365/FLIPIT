@@ -1,14 +1,33 @@
 # FLIPIT
-FLIPIT is a real estate platform concept designed to help buyers, sellers, investors, and dealmakers discover property opportunities, research ownership and bank-owned listings, evaluate potential deals, connect with buyers, and organize proposals and contract workflows—all in one place.
+
+FLIPIT is a browser-based real-estate deal workspace by HSW365 for buyers, sellers, wholesalers, and investors.
+
+## Included in this build
+
+- Deal analyzer with purchase price, ARV, repairs, holding/closing costs, desired profit, estimated margin, and maximum allowable offer
+- Saved deal pipeline using browser storage
+- Seller, buyer, investor, agent, and service-provider contact CRM
+- Draft generator for letters of intent, purchase/assignment agreement templates, outreach, and due diligence
+- Zillow handoff button using Zillow's public website; no scraping or unauthorized embedding
+- Pricing display and Cash App reference: `$HSW365`
+- Responsive interface with explicit production-integration boundaries
+
 ## Pricing
 
-FLIPIT is a paid platform. Access to features will be provided through subscription plans.
+| Plan | Price |
+|---|---:|
+| Starter | $19 one-time |
+| Investor | $49/month |
+| Pro | $99/month |
 
-| Plan | Price | Best For |
-|---|---:|---|
-| Starter | $19/month | Basic property research and deal organization |
-| Investor Pro | $49/month | Advanced deal analysis and proposal tools |
-| Dealmaker | $99/month | Unlimited deal workspaces and advanced workflows |
-| Enterprise | Custom | Brokerages, teams, and business accounts |
+## Production integrations still requiring credentials/provider setup
 
-Third-party property records, MLS data, ownership reports, title information, and other data-provider services may require additional usage fees.
+The static app is functional for local deal organization, calculations, contacts, and document drafts. A production SaaS deployment requires a secure backend and provider accounts for authentication, database persistence, Stripe Checkout/webhooks, authorized property-data/MLS access, county-record/title data, email/SMS delivery, and e-signature. Secrets must never be placed in frontend HTML.
+
+## Run locally
+
+Open `index.html` in a browser. For deployment, publish the repository through GitHub Pages or serve it from Render/static hosting.
+
+## Legal notice
+
+FLIPIT is not a broker, attorney, title company, lender, MLS provider, or appraisal service. Calculations and templates are informational and must be independently verified and reviewed by qualified professionals.
