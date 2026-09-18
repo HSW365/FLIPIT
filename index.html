@@ -228,5 +228,6 @@ function saveSettings(){state.settings={apiUrl:apiUrl.value,businessEmail:busine
 underwritingChecklist.innerHTML=['Ownership/title checked','Liens/taxes checked','Permits/zoning checked','Comparable sales reviewed','Repair scope documented','Insurance/financing estimated','Occupancy/lease status verified','Local assignment/disclosure rules reviewed'].map((x,i)=>`<label><input type="checkbox" id="check${i}"> ${x}</label>`).join('');
 render();analyze(dealForm);runCalc();
 </script>
+<script src="flipit-autopilot.js"></script>
 </body>
 </html>
