@@ -1,30 +1,232 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FLIPIT | Real Estate Deal Workspace</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="FLIPIT by HSW365 — real estate deal discovery, underwriting, buyer matching and transaction workspace.">
+<title>FLIPIT | Real Estate Deal Workspace</title>
 <style>
-:root{--ink:#172033;--muted:#64748b;--line:#dbe3ef;--bg:#f6f9fc;--card:#fff;--brand:#5b35f5;--cyan:#00b8d9;--good:#0f9d68;--warn:#c77700}*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:var(--ink)}a{color:inherit}.top{background:linear-gradient(120deg,#5b35f5,#00b8d9);color:#fff;padding:18px 5vw}.nav{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:15px}.logo{font-size:28px;font-weight:900;letter-spacing:.06em}.nav span{font-size:13px;opacity:.9}.wrap{max-width:1200px;margin:25px auto;padding:0 18px}.hero{display:flex;justify-content:space-between;gap:25px;align-items:end;margin-bottom:20px}.hero h1{font-size:clamp(28px,5vw,46px);margin:0 0 8px}.hero p{color:var(--muted);max-width:700px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer;background:var(--brand);color:#fff}.btn.alt{background:#e9edff;color:#3924a6}.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:16px}.tab{white-space:nowrap;padding:10px 14px;border:1px solid var(--line);background:#fff;border-radius:999px;cursor:pointer;font-weight:700}.tab.active{background:var(--ink);color:#fff}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 24px #2538580b}.span8{grid-column:span 8}.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:span 12}.card h2,.card h3{margin:0 0 12px}.muted{color:var(--muted);font-size:13px}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}label{font-size:12px;font-weight:800;color:var(--muted);display:block;margin-bottom:5px}input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:#fff;font:inherit}textarea{min-height:100px;resize:vertical}.full{grid-column:1/-1}.metric{font-size:28px;font-weight:900}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.tag{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;background:#e9f8f1;color:var(--good)}.tag.warn{background:#fff4df;color:var(--warn)}.notice{background:#fff8e8;border:1px solid #f3d48b;padding:12px;border-radius:10px;color:#775000;font-size:13px}.empty{text-align:center;padding:25px;color:var(--muted)}.footer{padding:35px 0;color:var(--muted);font-size:12px;text-align:center}@media(max-width:800px){.span8,.span4,.span6{grid-column:span 12}.hero{display:block}.hero .actions{margin-top:15px}.formgrid{grid-template-columns:1fr}}
-</style></head>
+:root{--ink:#172033;--muted:#64748b;--line:#dbe3ef;--bg:#f6f9fc;--card:#fff;--brand:#5b35f5;--cyan:#00b8d9;--good:#0f9d68;--warn:#c77700;--bad:#c83b4a;--gold:#c89a19}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:var(--ink)}a{color:inherit}
+.top{background:linear-gradient(120deg,#5b35f5,#00b8d9);color:#fff;padding:18px 5vw}.nav{max-width:1250px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:15px}.logo{font-size:28px;font-weight:900;letter-spacing:.06em}.nav span{font-size:13px;opacity:.9}
+.wrap{max-width:1250px;margin:25px auto;padding:0 18px}.hero{display:flex;justify-content:space-between;gap:25px;align-items:end;margin-bottom:20px}.hero h1{font-size:clamp(28px,5vw,46px);margin:0 0 8px}.hero p{color:var(--muted);max-width:760px}.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer;background:var(--brand);color:#fff}.btn.alt{background:#e9edff;color:#3924a6}.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn.good{background:var(--good)}.btn.warn{background:#fff0d8;color:#875500}.btn.small{padding:7px 10px;font-size:12px}
+.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:16px}.tab{white-space:nowrap;padding:10px 14px;border:1px solid var(--line);background:#fff;border-radius:999px;cursor:pointer;font-weight:700}.tab.active{background:var(--ink);color:#fff}
+.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 24px #2538580b}.span8{grid-column:span 8}.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:span 12}
+.card h2,.card h3{margin:0 0 12px}.muted{color:var(--muted);font-size:13px}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}label{font-size:12px;font-weight:800;color:var(--muted);display:block;margin-bottom:5px}input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:#fff;font:inherit}textarea{min-height:100px;resize:vertical}.full{grid-column:1/-1}
+.metric{font-size:28px;font-weight:900}.metric.good{color:var(--good)}.metric.warn{color:var(--warn)}.metric.bad{color:var(--bad)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.tag{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;background:#e9f8f1;color:var(--good)}.tag.warn{background:#fff4df;color:var(--warn)}.tag.bad{background:#ffe9ec;color:var(--bad)}
+.notice{background:#fff8e8;border:1px solid #f3d48b;padding:12px;border-radius:10px;color:#775000;font-size:13px}.empty{text-align:center;padding:25px;color:var(--muted)}.footer{padding:35px 0;color:var(--muted);font-size:12px;text-align:center}
+.copilot{background:linear-gradient(135deg,#191d32,#343c70);color:#fff}.copilot input{background:#fff}.copilot .muted{color:#cbd5e1}.chat{min-height:150px;max-height:280px;overflow:auto;margin:12px 0;padding:4px}.bubble{padding:11px 13px;border-radius:12px;margin:8px 0;max-width:90%;white-space:pre-wrap}.bubble.ai{background:#2e365d}.bubble.user{background:#e9edff;color:#292056;margin-left:auto}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{padding:13px;border:1px solid var(--line);border-radius:12px;background:#fbfdff}.stat b{display:block;font-size:20px;margin-top:4px}.checklist label{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--ink);font-weight:600;margin:9px 0}.checklist input{width:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:11px;text-transform:uppercase}
+@media(max-width:900px){.span8,.span4,.span6{grid-column:span 12}.hero{display:block}.hero .actions{margin-top:15px}.formgrid{grid-template-columns:1fr}.statgrid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.statgrid{grid-template-columns:1fr}}
+</style>
+</head>
 <body>
 <header class="top"><div class="nav"><div class="logo">FLIPIT</div><span>HSW365 Real Estate Deal Workspace</span></div></header>
 <main class="wrap">
-<section class="hero"><div><h1>Find deals. Analyze value. Move with confidence.</h1><p>A working browser-based real-estate workspace for buyers, sellers, wholesalers, and investors. Save leads, analyze deals, generate outreach, and prepare transaction documents.</p></div><div class="actions"><button class="btn" onclick="showTab('deal')">Analyze a deal</button><button class="btn alt" onclick="window.open('https://www.zillow.com','_blank','noopener')">Search Zillow ↗</button></div></section>
-<div class="tabs"><button class="tab active" data-tab="dashboard">Dashboard</button><button class="tab" data-tab="deal">Deal Analyzer</button><button class="tab" data-tab="leads">Leads & Investors</button><button class="tab" data-tab="documents">Documents</button><button class="tab" data-tab="settings">Settings</button></div>
-<section id="dashboard" class="panel active"><div class="grid"><div class="card span8"><h2>Deal pipeline</h2><div id="pipeline"></div></div><div class="card span4"><h2>Workspace status</h2><div class="row"><span>Saved deals</span><b id="dealCount">0</b></div><div class="row"><span>Contacts</span><b id="leadCount">0</b></div><div class="row"><span>Documents</span><b id="docCount">0</b></div><div class="notice">Live MLS, owner-record, payment, and e-sign integrations require provider credentials. This build keeps those boundaries explicit.</div></div><div class="card span6"><h2>Quick actions</h2><div class="actions"><button class="btn" onclick="showTab('deal')">New deal</button><button class="btn ghost" onclick="showTab('leads')">Add investor</button><button class="btn ghost" onclick="showTab('documents')">Create document</button></div></div><div class="card span6"><h2>Pricing</h2><div class="row"><span>Starter</span><b>$19 one-time</b></div><div class="row"><span>Investor</span><b>$49/month</b></div><div class="row"><span>Pro</span><b>$99/month</b></div><p class="muted">Payments can be connected through Stripe Checkout or Cash App: <b>$HSW365</b>.</p></div></div></section>
-<section id="deal" class="panel"><div class="grid"><div class="card span8"><h2>Deal analyzer</h2><form id="dealForm"><div class="formgrid"><div><label>Property address</label><input name="address" required placeholder="123 Main St, City, State"></div><div><label>Listing/source URL</label><input name="url" type="url" placeholder="https://..."></div><div><label>Purchase price</label><input name="price" type="number" min="0" value="100000"></div><div><label>After-repair value (ARV)</label><input name="arv" type="number" min="0" value="180000"></div><div><label>Repair estimate</label><input name="repairs" type="number" min="0" value="25000"></div><div><label>Holding/closing costs</label><input name="costs" type="number" min="0" value="12000"></div><div><label>Assignment/desired profit</label><input name="profit" type="number" min="0" value="15000"></div><div><label>Strategy</label><select name="strategy"><option>Wholesale</option><option>Fix and flip</option><option>Buy and hold</option><option>Seller finance</option></select></div></div><br><button class="btn">Save and analyze</button></form></div><div class="card span4"><h2>Analysis</h2><div class="row"><span>Total basis</span><b id="basis">$0</b></div><div class="row"><span>Estimated margin</span><b id="margin">$0</b></div><div class="row"><span>Max allowable offer</span><b id="mao">$0</b></div><div class="row"><span>Deal status</span><span id="status" class="tag">Ready</span></div><p class="muted">Illustrative calculations only. Verify title, liens, permits, property condition, comparable sales, and local laws before making an offer.</p></div></div></section>
-<section id="leads" class="panel"><div class="grid"><div class="card span6"><h2>Add contact</h2><form id="leadForm"><div class="formgrid"><div><label>Name/company</label><input name="name" required></div><div><label>Type</label><select name="type"><option>Seller</option><option>Buyer</option><option>Investor</option><option>Agent</option><option>Service provider</option></select></div><div><label>Email</label><input name="email" type="email"></div><div><label>Phone</label><input name="phone"></div><div class="full"><label>Notes</label><textarea name="notes"></textarea></div></div><br><button class="btn">Save contact</button></form></div><div class="card span6"><h2>Saved contacts</h2><div id="leadsList"></div></div></div></section>
-<section id="documents" class="panel"><div class="grid"><div class="card span6"><h2>Document generator</h2><form id="docForm"><label>Document type</label><select name="type"><option>Letter of Intent</option><option>Purchase Agreement Draft</option><option>Assignment Agreement Draft</option><option>Investor Outreach Email</option><option>Seller Outreach Letter</option><option>Due Diligence Checklist</option></select><label>Property / recipient details</label><textarea name="details" placeholder="Address, parties, price, dates, terms..."></textarea><button class="btn">Generate draft</button></form></div><div class="card span6"><h2>Generated documents</h2><div id="docsList"></div></div></div></section>
-<section id="settings" class="panel"><div class="card"><h2>Integration settings</h2><div class="notice">No credentials are stored in this static frontend. For production, connect a secure backend with environment variables for Stripe, Supabase/Postgres, an authorized property-data provider, email/SMS, and e-signature.</div><br><div class="formgrid"><div><label>Backend API URL</label><input id="apiUrl" placeholder="https://your-api.example.com"></div><div><label>Business email</label><input value="book@hoodstar365.com"></div><div><label>Cash App</label><input value="$HSW365"></div><div><label>Data mode</label><select><option>Local browser storage</option><option>Connected backend (when configured)</option></select></div></div><br><button class="btn" onclick="saveSettings()">Save settings</button></div></section>
-<div class="footer">FLIPIT by HSW365 · Not a broker, attorney, title company, lender, or MLS provider. Verify all information independently.</div></main>
+<section class="hero">
+<div><h1>Find deals. Analyze value. Find buyers. Move the deal forward.</h1><p>FLIPIT now brings deal discovery, underwriting, cash-flow analysis, buyer matching, deal structuring, AI-style copilot guidance, and document workflows into one browser workspace.</p></div>
+<div class="actions"><button class="btn" onclick="showTab('deal')">Analyze a deal</button><button class="btn alt" onclick="showTab('copilot')">Ask FLIPIT Copilot</button><button class="btn ghost" onclick="window.open('https://www.zillow.com','_blank','noopener')">Search Zillow ↗</button></div>
+</section>
+
+<div class="tabs">
+<button class="tab active" data-tab="dashboard">Dashboard</button>
+<button class="tab" data-tab="deal">Deal Analyzer</button>
+<button class="tab" data-tab="copilot">AI Copilot</button>
+<button class="tab" data-tab="buyers">Find Buyers</button>
+<button class="tab" data-tab="documents">Contracts</button>
+<button class="tab" data-tab="calculator">Calculator</button>
+<button class="tab" data-tab="settings">Settings</button>
+</div>
+
+<section id="dashboard" class="panel active">
+<div class="grid">
+<div class="card span8"><h2>Deal pipeline</h2><div id="pipeline"></div></div>
+<div class="card span4"><h2>Workspace status</h2>
+<div class="row"><span>Saved deals</span><b id="dealCount">0</b></div><div class="row"><span>Contacts</span><b id="leadCount">0</b></div><div class="row"><span>Documents</span><b id="docCount">0</b></div><div class="row"><span>Potential buyers</span><b id="buyerCount">0</b></div>
+<div class="notice">Live MLS, public-record, payment, messaging, e-sign and AI API integrations require provider credentials. The browser build below works without exposing secrets.</div>
+</div>
+<div class="card span12"><h2>Deal snapshot</h2><div class="statgrid">
+<div class="stat"><span class="muted">Potential equity</span><b id="dashEquity">$0</b></div>
+<div class="stat"><span class="muted">Projected margin</span><b id="dashMargin">$0</b></div>
+<div class="stat"><span class="muted">Deals needing review</span><b id="dashReview">0</b></div>
+<div class="stat"><span class="muted">Buyer matches</span><b id="dashMatches">0</b></div>
+</div></div>
+<div class="card span6"><h2>Quick actions</h2><div class="actions"><button class="btn" onclick="showTab('deal')">New deal</button><button class="btn ghost" onclick="showTab('buyers')">Find cash buyers</button><button class="btn ghost" onclick="showTab('documents')">Create contract</button><button class="btn ghost" onclick="showTab('calculator')">Open calculator</button></div></div>
+<div class="card span6"><h2>Pricing</h2><div class="row"><span>Starter</span><b>$19 one-time</b></div><div class="row"><span>Investor</span><b>$49/month</b></div><div class="row"><span>Pro</span><b>$99/month</b></div><p class="muted">Payments can be connected through Stripe Checkout or Cash App: <b>$HSW365</b>.</p></div>
+</div>
+</section>
+
+<section id="deal" class="panel">
+<div class="grid">
+<div class="card span8"><h2>Deal analyzer + full underwriting</h2>
+<form id="dealForm"><div class="formgrid">
+<div><label>Property address</label><input name="address" required placeholder="123 Main St, City, State"></div>
+<div><label>Listing/source URL</label><input name="url" type="url" placeholder="https://..."></div>
+<div><label>Purchase price</label><input name="price" type="number" min="0" value="100000"></div>
+<div><label>After-repair value (ARV)</label><input name="arv" type="number" min="0" value="180000"></div>
+<div><label>Repair estimate</label><input name="repairs" type="number" min="0" value="25000"></div>
+<div><label>Holding/closing costs</label><input name="costs" type="number" min="0" value="12000"></div>
+<div><label>Assignment / desired profit</label><input name="profit" type="number" min="0" value="15000"></div>
+<div><label>Monthly rent (if applicable)</label><input name="rent" type="number" min="0" value="0"></div>
+<div><label>Monthly operating expenses</label><input name="opex" type="number" min="0" value="0"></div>
+<div><label>Strategy</label><select name="strategy"><option>Wholesale</option><option>Fix and flip</option><option>Buy and hold</option><option>Seller finance</option></select></div>
+<div><label>Financing / down payment</label><input name="down" type="number" min="0" value="0"></div>
+<div><label>Interest rate %</label><input name="rate" type="number" min="0" step=".01" value="0"></div>
+<div class="full"><label>Comparable sales / notes</label><textarea name="notes" placeholder="Comps, condition, occupancy, title notes, seller motivation, etc."></textarea></div>
+</div><br><button class="btn">Save + run full analysis</button></form>
+</div>
+<div class="card span4"><h2>Analysis</h2>
+<div class="row"><span>Total basis</span><b id="basis">$0</b></div><div class="row"><span>Projected gross margin</span><b id="margin">$0</b></div><div class="row"><span>Max allowable offer</span><b id="mao">$0</b></div><div class="row"><span>Monthly cash flow</span><b id="cashflow">$0</b></div><div class="row"><span>Cash-on-cash</span><b id="coc">0%</b></div><div class="row"><span>Deal status</span><span id="status" class="tag">Ready</span></div>
+<p class="muted">Illustrative underwriting only. Verify title, liens, permits, condition, comparable sales, financing terms, taxes, insurance, rent and local laws before making an offer.</p>
+</div>
+<div class="card span12"><h3>Underwriting checklist</h3><div class="checklist" id="underwritingChecklist"></div></div>
+</div>
+</section>
+
+<section id="copilot" class="panel">
+<div class="grid">
+<div class="card span8 copilot"><h2>FLIPIT Copilot</h2><p class="muted">Ask about a saved deal, numbers, buyer strategy, or next steps. This browser copilot uses your local workspace data; connect an AI API on the backend for a production conversational model.</p>
+<div id="chat" class="chat"><div class="bubble ai">I’m FLIPIT Copilot. Ask me to analyze your latest deal, explain the numbers, find buyer matches, or suggest the next workflow step.</div></div>
+<form id="chatForm"><div class="actions"><input id="chatInput" required placeholder="Example: Analyze my latest deal"></div><br><button class="btn">Ask Copilot</button></form></div>
+<div class="card span4"><h2>Copilot shortcuts</h2><div class="actions"><button class="btn ghost" onclick="ask('Analyze my latest deal')">Analyze latest deal</button><button class="btn ghost" onclick="ask('Who are the buyer matches?')">Find buyer matches</button><button class="btn ghost" onclick="ask('What should I verify before making an offer?')">Due diligence</button><button class="btn ghost" onclick="ask('Explain my max allowable offer')">Explain MAO</button></div></div>
+</div>
+</section>
+
+<section id="buyers" class="panel">
+<div class="grid">
+<div class="card span4"><h2>Find cash buyers</h2><p class="muted">Add buyers/investors to your contact workspace, then match them to a deal by strategy, budget and target area.</p>
+<form id="buyerForm"><div class="formgrid">
+<div class="full"><label>Name / company</label><input name="name" required></div>
+<div><label>Email</label><input name="email" type="email"></div><div><label>Phone</label><input name="phone"></div>
+<div><label>Max purchase price</label><input name="max" type="number" min="0" value="300000"></div>
+<div><label>Strategy</label><select name="strategy"><option>Any</option><option>Wholesale</option><option>Fix and flip</option><option>Buy and hold</option><option>Seller finance</option></select></div>
+<div class="full"><label>Target area / notes</label><input name="area" placeholder="City, county, ZIP, property type"></div>
+</div><br><button class="btn">Save buyer</button></form></div>
+<div class="card span8"><h2>Buyer matching</h2>
+<div class="formgrid"><div><label>Match against deal</label><select id="buyerDeal"></select></div><div><label>Minimum match score</label><select id="matchThreshold"><option value="40">40%</option><option value="60">60%</option><option value="80">80%</option></select></div></div><br><button class="btn good" onclick="matchBuyers()">Find matching buyers</button><div id="matches" class="empty">Select a saved deal to see buyer matches.</div></div>
+<div class="card span12"><h2>Saved buyers</h2><div id="buyersList"></div></div>
+</div>
+</section>
+
+<section id="documents" class="panel">
+<div class="grid">
+<div class="card span6"><h2>Contract & document workspace</h2>
+<form id="docForm"><label>Document type</label><select name="type"><option>Letter of Intent</option><option>Purchase Agreement Draft</option><option>Assignment Agreement Draft</option><option>Buyer Offer Summary</option><option>Investor Outreach Email</option><option>Seller Outreach Letter</option><option>Due Diligence Checklist</option><option>Deal Structure Summary</option></select>
+<label>Property / recipient details</label><textarea name="details" placeholder="Address, parties, price, dates, terms, assignment amount, etc."></textarea>
+<br><button class="btn">Generate draft</button></form></div>
+<div class="card span6"><h2>Contract rights / transaction flow</h2><p class="muted">Use this workflow to keep a proposed assignment or purchase process organized. It does not create legal rights by itself.</p>
+<div class="row"><span>1. Structure deal</span><button class="btn small ghost" onclick="generateStructure()">Generate</button></div>
+<div class="row"><span>2. Prepare purchase draft</span><button class="btn small ghost" onclick="quickDoc('Purchase Agreement Draft')">Draft</button></div>
+<div class="row"><span>3. Identify buyer</span><button class="btn small ghost" onclick="showTab('buyers')">Find buyers</button></div>
+<div class="row"><span>4. Assignment / closing review</span><button class="btn small ghost" onclick="quickDoc('Assignment Agreement Draft')">Draft</button></div>
+<div class="notice">Have a licensed real-estate attorney review contracts and confirm assignment, disclosure, licensing, title and local-law requirements before use.</div>
+</div>
+<div class="card span12"><h2>Generated documents</h2><div id="docsList"></div></div>
+</div>
+</section>
+
+<section id="calculator" class="panel">
+<div class="grid">
+<div class="card span6"><h2>Deal calculator</h2><div class="formgrid">
+<div><label>Purchase price</label><input id="calcPrice" type="number" value="200000"></div><div><label>ARV / sale price</label><input id="calcArv" type="number" value="300000"></div>
+<div><label>Repairs</label><input id="calcRep" type="number" value="30000"></div><div><label>Closing/holding</label><input id="calcCost" type="number" value="20000"></div>
+<div><label>Desired profit</label><input id="calcProfit" type="number" value="30000"></div><div><label>Assignment fee</label><input id="calcAssign" type="number" value="0"></div>
+</div><br><button class="btn" onclick="runCalc()">Calculate</button></div>
+<div class="card span6"><h2>Results</h2><div class="row"><span>Total project cost</span><b id="calcTotal">$0</b></div><div class="row"><span>Estimated profit before financing/tax</span><b id="calcNet">$0</b></div><div class="row"><span>Maximum offer</span><b id="calcMax">$0</b></div><div class="row"><span>Buyer/assignment spread</span><b id="calcSpread">$0</b></div></div>
+</div>
+</section>
+
+<section id="settings" class="panel">
+<div class="card"><h2>Integration settings</h2><div class="notice">No secrets are stored in this frontend. Production integrations should use a secure backend and environment variables.</div><br>
+<div class="formgrid"><div><label>Backend API URL</label><input id="apiUrl" placeholder="https://your-api.example.com"></div><div><label>Business email</label><input id="businessEmail" value="book@hoodstar365.com"></div><div><label>Cash App</label><input id="cashApp" value="$HSW365"></div><div><label>Data mode</label><select id="dataMode"><option>Local browser storage</option><option>Connected backend (when configured)</option></select></div></div><br><button class="btn" onclick="saveSettings()">Save settings</button></div>
+</section>
+
+<div class="footer">FLIPIT by HSW365 · Not a broker, attorney, title company, lender, MLS provider, or appraisal service. Calculations, buyer matches and templates are informational and must be independently verified.</div>
+</main>
 <script>
-const key='flipit_workspace_v1';let state=JSON.parse(localStorage.getItem(key)||'{"deals":[],"leads":[],"docs":[],"settings":{}}');
-function save(){localStorage.setItem(key,JSON.stringify(state));render()};function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(n)||0)}
+const key='flipit_workspace_v2';
+let state=JSON.parse(localStorage.getItem(key)||'{"deals":[],"leads":[],"buyers":[],"docs":[],"settings":{}}');
+if(!state.buyers)state.buyers=[];
+function save(){localStorage.setItem(key,JSON.stringify(state));render()}
+function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(n)||0)}
+function pct(n){return (Number(n)||0).toFixed(1)+'%'}
 function showTab(id){document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id))}
 document.querySelectorAll('.tab').forEach(x=>x.onclick=()=>showTab(x.dataset.tab));
-function render(){dealCount.textContent=state.deals.length;leadCount.textContent=state.leads.length;docCount.textContent=state.docs.length;pipeline.innerHTML=state.deals.length?state.deals.map((d,i)=>`<div class="row"><span><b>${esc(d.address)}</b><br><small class="muted">${d.strategy} · ${money(d.price)} purchase · ${d.status}</small></span><button class="btn ghost" onclick="deleteDeal(${i})">Delete</button></div>`).join(''):'<div class="empty">No deals saved yet. Start with the Deal Analyzer.</div>';leadsList.innerHTML=state.leads.length?state.leads.map((l,i)=>`<div class="row"><span><b>${esc(l.name)}</b> <span class="tag">${l.type}</span><br><small class="muted">${esc(l.email||l.phone||'No contact details')}</small></span><button class="btn ghost" onclick="deleteLead(${i})">Delete</button></div>`).join(''):'<div class="empty">No contacts saved.</div>';docsList.innerHTML=state.docs.length?state.docs.map((d,i)=>`<div class="row"><span><b>${d.type}</b><br><small class="muted">${new Date(d.date).toLocaleString()}</small></span><button class="btn ghost" onclick="downloadDoc(${i})">Open</button></div>`).join(''):'<div class="empty">No documents generated.</div>'}
 function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function analyze(f){let price=+f.price.value||0,arv=+f.arv.value||0,rep=+f.repairs.value||0,cost=+f.costs.value||0,profit=+f.profit.value||0,basis=price+rep+cost,margin=arv-basis,mao=arv-rep-cost-profit;document.querySelector('#basis').textContent=money(basis);document.querySelector('#margin').textContent=money(margin);document.querySelector('#mao').textContent=money(mao);let good=margin>0&&price<=mao;status.textContent=good?'Potentially viable':'Needs review';status.className='tag '+(good?'':'warn');return {price,arv,rep,cost,profit,basis,margin,mao}}
-dealForm.onsubmit=e=>{e.preventDefault();let f=e.target,a=analyze(f);state.deals.unshift({address:f.address.value,url:f.url.value,strategy:f.strategy.value,price:a.price,status:a.margin>0&&a.price<=a.mao?'Review positively':'Review carefully',analysis:a,date:Date.now()});save();alert('Deal saved to your workspace.');showTab('dashboard')};dealForm.oninput=()=>analyze(dealForm);
-leadForm.onsubmit=e=>{e.preventDefault();let f=e.target;state.leads.unshift({name:f.name.value,type:f.type.value,email:f.email.value,phone:f.phone.value,notes:f.notes.value,date:Date.now()});save();e.target.reset();alert('Contact saved.')};
-docForm.onsubmit=e=>{e.preventDefault();let f=e.target;let body=`${f.type.value}\n\nPrepared by FLIPIT / HSW365\nDate: ${new Date().toLocaleDateString()}\n\nDetails:\n${f.details.value}\n\nImportant: This is a preliminary template, not legal advice. Have a licensed attorney review before signing.`;state.docs.unshift({type:f.type.value,body,date:Date.now()});save();alert('Draft generated. Open it from the list.')};function downloadDoc(i){let d=state.docs[i],w=window.open();w.document.write('<pre style="white-space:pre-wrap;font:16px Arial;padding:30px">'+esc(d.body)+'</pre>')};function deleteDeal(i){state.deals.splice(i,1);save()}function deleteLead(i){state.leads.splice(i,1);save()}function saveSettings(){state.settings.apiUrl=document.querySelector('#apiUrl').value;save();alert('Settings saved locally.')}render();analyze(dealForm);
-</script></body></html>
+function getAnalysis(f){
+ const price=+f.price.value||0,arv=+f.arv.value||0,rep=+f.repairs.value||0,cost=+f.costs.value||0,profit=+f.profit.value||0,rent=+f.rent.value||0,opex=+f.opex.value||0,down=+f.down.value||0,rate=+f.rate.value||0;
+ const basis=price+rep+cost,margin=arv-basis,mao=arv-rep-cost-profit,monthly=rent-opex;
+ const annual=monthly*12, coc=down>0?annual/down*100:0;
+ return {price,arv,rep,cost,profit,rent,opex,down,rate,basis,margin,mao,monthly,coc};
+}
+function analyze(f){
+ const a=getAnalysis(f);
+ basis.textContent=money(a.basis);margin.textContent=money(a.margin);mao.textContent=money(a.mao);cashflow.textContent=money(a.monthly);coc.textContent=pct(a.coc);
+ const good=a.margin>0&&a.price<=a.mao;
+ status.textContent=good?'Potentially viable':a.margin>0?'Needs price review':'Needs review';
+ status.className='tag '+(good?'':a.margin>0?'warn':'bad');
+ return a;
+}
+dealForm.onsubmit=e=>{
+ e.preventDefault();const f=e.target,a=analyze(f);
+ state.deals.unshift({address:f.address.value,url:f.url.value,strategy:f.strategy.value,price:a.price,status:a.margin>0&&a.price<=a.mao?'Review':'Needs review',analysis:a,notes:f.notes.value,date:Date.now()});
+ save();alert('Deal saved and fully analyzed.');showTab('dashboard');
+};
+dealForm.oninput=()=>analyze(dealForm);
+function render(){
+ dealCount.textContent=state.deals.length;leadCount.textContent=state.leads.length;docCount.textContent=state.docs.length;buyerCount.textContent=state.buyers.length;
+ pipeline.innerHTML=state.deals.length?state.deals.map((d,i)=>`<div class="row"><span><b>${esc(d.address)}</b><br><small class="muted">${esc(d.strategy)} · ${money(d.price)} purchase · ${d.status}</small></span><div class="actions"><button class="btn small ghost" onclick="loadDeal(${i})">Open</button><button class="btn small ghost" onclick="deleteDeal(${i})">Delete</button></div></div>`).join(''):'<div class="empty">No deals saved yet. Start with the Deal Analyzer.</div>';
+ buyersList.innerHTML=state.buyers.length?state.buyers.map((b,i)=>`<div class="row"><span><b>${esc(b.name)}</b> <span class="tag">${esc(b.strategy)}</span><br><small class="muted">Up to ${money(b.max)} · ${esc(b.area||'Any area')}</small></span><button class="btn small ghost" onclick="deleteBuyer(${i})">Delete</button></div>`).join(''):'<div class="empty">No buyers saved.</div>';
+ docsList.innerHTML=state.docs.length?state.docs.map((d,i)=>`<div class="row"><span><b>${esc(d.type)}</b><br><small class="muted">${new Date(d.date).toLocaleString()}</small></span><button class="btn small ghost" onclick="downloadDoc(${i})">Open</button></div>`).join(''):'<div class="empty">No documents generated.</div>';
+ const latest=state.deals[0];dashEquity.textContent=money(latest?.analysis?.arv-(latest?.analysis?.price||0));dashMargin.textContent=money(latest?.analysis?.margin||0);dashReview.textContent=state.deals.filter(d=>d.status!=='Review').length;dashMatches.textContent=state.deals.length&&state.buyers.length?matchCountFor(state.deals[0]):0;
+ buyerDeal.innerHTML=state.deals.length?state.deals.map((d,i)=>`<option value="${i}">${esc(d.address)} — ${money(d.price)}</option>`).join(''):'<option value="">No saved deals</option>';
+}
+function matchCountFor(d){return state.buyers.filter(b=>scoreBuyer(b,d)>=60).length}
+function scoreBuyer(b,d){
+ const a=d.analysis||{};let score=0;
+ if((+b.max||0)>=(+a.price||0))score+=45;
+ if(b.strategy==='Any'||b.strategy===d.strategy)score+=30;
+ const area=(b.area||'').toLowerCase(),addr=(d.address||'').toLowerCase();
+ if(!area||area.split(/[,s]+/).some(x=>x.length>2&&addr.includes(x)))score+=25;else score+=10;
+ return Math.min(100,score);
+}
+buyerForm.onsubmit=e=>{e.preventDefault();const f=e.target;state.buyers.unshift({name:f.name.value,email:f.email.value,phone:f.phone.value,max:+f.max.value||0,strategy:f.strategy.value,area:f.area.value,date:Date.now()});save();e.target.reset();alert('Buyer saved.');};
+function matchBuyers(){
+ if(!state.deals.length){alert('Save a deal first.');return}
+ const d=state.deals[+buyerDeal.value||0],threshold=+matchThreshold.value||40;
+ const rows=state.buyers.map((b,i)=>({b,i,s:scoreBuyer(b,d)})).filter(x=>x.s>=threshold).sort((a,b)=>b.s-a.s);
+ matches.innerHTML=rows.length?'<table><thead><tr><th>Buyer</th><th>Match</th><th>Budget</th><th>Strategy</th><th>Contact</th></tr></thead><tbody>'+rows.map(x=>`<tr><td><b>${esc(x.b.name)}</b><br><small>${esc(x.b.area||'')}</small></td><td><span class="tag">${x.s}%</span></td><td>${money(x.b.max)}</td><td>${esc(x.b.strategy)}</td><td>${esc(x.b.email||x.b.phone||'—')}</td></tr>`).join('')+'</tbody></table>':'<div class="empty">No saved buyers meet that threshold. Add more buyers or lower the match threshold.';
+}
+function loadDeal(i){showTab('deal');const d=state.deals[i];dealForm.address.value=d.address;dealForm.url.value=d.url||'';dealForm.price.value=d.analysis.price;dealForm.arv.value=d.analysis.arv;dealForm.repairs.value=d.analysis.rep;dealForm.costs.value=d.analysis.cost;dealForm.profit.value=d.analysis.profit;dealForm.rent.value=d.analysis.rent||0;dealForm.opex.value=d.analysis.opex||0;dealForm.down.value=d.analysis.down||0;dealForm.rate.value=d.analysis.rate||0;dealForm.strategy.value=d.strategy;dealForm.notes.value=d.notes||'';analyze(dealForm)}
+function deleteDeal(i){state.deals.splice(i,1);save()}
+function deleteBuyer(i){state.buyers.splice(i,1);save()}
+function ask(q){chatInput.value=q;chatForm.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}))}
+function copilotAnswer(q){
+ const s=q.toLowerCase(),d=state.deals[0];
+ if(!d)return 'There are no saved deals yet. Start in Deal Analyzer and save a property first.';
+ const a=d.analysis;
+ if(s.includes('buyer')||s.includes('match'))return `For ${d.address}, I found ${matchCountFor(d)} saved buyer(s) at the 60% match threshold. Open Find Buyers to see the matching budget, strategy and contact details.`;
+ if(s.includes('mao')||s.includes('maximum allowable'))return `The current illustrative MAO is ${money(a.mao)}. It is calculated as ARV minus repairs, holding/closing costs and desired profit. Verify your assumptions before using it in an offer.`;
+ if(s.includes('due diligence')||s.includes('verify'))return 'Before an offer, verify ownership/title, liens, taxes, permits, zoning/use, occupancy, condition, comparable sales, repair scope, insurance, financing and any assignment/disclosure requirements that apply locally.';
+ if(s.includes('analy'))return `Latest deal: ${d.address}. Purchase ${money(a.price)}, ARV ${money(a.arv)}, total basis ${money(a.basis)}, projected margin ${money(a.margin)}, MAO ${money(a.mao)}, and monthly rent-minus-operating-expenses ${money(a.monthly)}. These are illustrative figures, not a valuation or guarantee.`;
+ return 'I can analyze the latest deal, explain MAO, identify buyer matches, or give you a due-diligence checklist. Try one of those questions.';
+}
+chatForm.onsubmit=e=>{e.preventDefault();const q=chatInput.value.trim();if(!q)return;chat.innerHTML+=`<div class="bubble user">${esc(q)}</div><div class="bubble ai">${esc(copilotAnswer(q))}</div>`;chat.scrollTop=chat.scrollHeight;chatInput.value=''};
+function makeDoc(type,details){
+ let body=`${type}\n\nPrepared by FLIPIT / HSW365\nDate: ${new Date().toLocaleDateString()}\n\nProperty / transaction details:\n${details||'Not provided'}\n\nWORKFLOW NOTE\nThis preliminary template is for organization and discussion only. It is not legal advice and does not create a contract until properly executed under applicable law. Have qualified counsel review before signing.\n`;
+ return body;
+}
+docForm.onsubmit=e=>{e.preventDefault();const f=e.target;state.docs.unshift({type:f.type.value,body:makeDoc(f.type.value,f.details.value),date:Date.now()});save();alert('Draft generated.');};
+function quickDoc(type){const d=state.deals[0];const details=d?`Address: ${d.address}\nPurchase price: ${money(d.analysis.price)}\nARV: ${money(d.analysis.arv)}\nStrategy: ${d.strategy}`:'Add a saved deal first.';state.docs.unshift({type,body:makeDoc(type,details),date:Date.now()});save();alert(type+' draft generated.');showTab('documents')}
+function generateStructure(){const d=state.deals[0];if(!d){alert('Save a deal first.');return}const a=d.analysis;state.docs.unshift({type:'Deal Structure Summary',body:makeDoc('Deal Structure Summary',`Property: ${d.address}\nStrategy: ${d.strategy}\nPurchase: ${money(a.price)}\nARV: ${money(a.arv)}\nRepairs: ${money(a.rep)}\nOther costs: ${money(a.cost)}\nDesired profit: ${money(a.profit)}\nIllustrative MAO: ${money(a.mao)}\nPotential margin: ${money(a.margin)}`),date:Date.now()});save();alert('Deal structure summary generated.')}
+function downloadDoc(i){const d=state.docs[i],w=window.open();w.document.write('<pre style="white-space:pre-wrap;font:16px Arial;padding:30px">'+esc(d.body)+'</pre>');w.document.close()}
+function runCalc(){const p=+calcPrice.value||0,a=+calcArv.value||0,r=+calcRep.value||0,c=+calcCost.value||0,pr=+calcProfit.value||0,af=+calcAssign.value||0;const total=p+r+c;calcTotal.textContent=money(total);calcNet.textContent=money(a-total);calcMax.textContent=money(a-r-c-pr);calcSpread.textContent=money(af)}
+function saveSettings(){state.settings={apiUrl:apiUrl.value,businessEmail:businessEmail.value,cashApp:cashApp.value,dataMode:dataMode.value};save();alert('Settings saved locally.')}
+underwritingChecklist.innerHTML=['Ownership/title checked','Liens/taxes checked','Permits/zoning checked','Comparable sales reviewed','Repair scope documented','Insurance/financing estimated','Occupancy/lease status verified','Local assignment/disclosure rules reviewed'].map((x,i)=>`<label><input type="checkbox" id="check${i}"> ${x}</label>`).join('');
+render();analyze(dealForm);runCalc();
+</script>
+</body>
+</html>
