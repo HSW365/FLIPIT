@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: flipit-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: REALTYAPI_KEY
+        sync: false
+      - key: NODE_VERSION
+        value: "20"
