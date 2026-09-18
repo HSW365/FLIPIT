@@ -38,4 +38,4 @@ jobs:
             console.log("- Listing: "+(d.sourceUrl||"N/A")+"\n");
           }
           NODE
-          gh issue create --title "FLIPIT Autopilot — $DATE" --body-file report.md --label "autopilot" || true
+          gh issue create --title "FLIPIT Autopilot — $DATE" --body-file report.md || true
