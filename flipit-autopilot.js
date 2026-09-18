@@ -11,7 +11,7 @@
   const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
   function workspace(){try{return JSON.parse(localStorage.getItem("flipit_workspace_v2")||'{"deals":[],"buyers":[],"docs":[],"settings":{}}')}catch{return {deals:[],buyers:[],docs:[],settings:{}}}}
   function writeWorkspace(w){localStorage.setItem("flipit_workspace_v2",JSON.stringify(w))}
-  function backend(){const w=workspace();return (w.settings?.apiUrl||"").replace(/\/$/,"")}
+  function backend(){const w=workspace();return (w.settings?.apiUrl||window.location.origin).replace(/\/$/,"")}
   function upsertDeal(d){
     const w=workspace();w.deals=w.deals||[];
     const i=w.deals.findIndex(x=>x.address===d.address);
@@ -22,7 +22,7 @@
   }
   async function discover(){
     const base=backend();
-    if(!base) throw new Error("Connect FLIPIT to a backend API in Settings first.");
+    if(!base) throw new Error("FLIPIT backend is not reachable.");
     const r=await fetch(base+"/api/autopilot/discover",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
       location:state.location,...state.filters
     })});
