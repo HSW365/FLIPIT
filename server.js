@@ -76,9 +76,5 @@ app.post("/api/autopilot/discover", async (req,res) => {
   }
 });
 
-app.get("*", (req,res,next) => {
-  if (req.path.startsWith("/api/")) return next();
-  res.sendFile(require("path").join(__dirname,"index.html"));
-});
 
 app.listen(PORT, ()=>console.log("FLIPIT API listening on "+PORT));
