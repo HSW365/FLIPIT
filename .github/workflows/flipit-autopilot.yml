@@ -6,12 +6,36 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
     steps:
-      - name: Run secure FLIPIT automation webhook
+      - name: Run live FLIPIT discovery
         env:
-          FLIPIT_AUTOPILOT_WEBHOOK: ${{ secrets.FLIPIT_AUTOPILOT_WEBHOOK }}
+          FLIPIT_AUTOPILOT_URL: https://flipit-m5ig.onrender.com/api/autopilot/run
         run: |
-          test -n "$FLIPIT_AUTOPILOT_WEBHOOK" || { echo "Set FLIPIT_AUTOPILOT_WEBHOOK in repository secrets"; exit 1; }
-          curl -fsS -X POST "$FLIPIT_AUTOPILOT_WEBHOOK" \
-            -H "Content-Type: application/json" \
-            -d '{"source":"github-actions","job":"flipit-autopilot"}'
+          curl -fsS -X POST "$FLIPIT_AUTOPILOT_URL" -H "Content-Type: application/json" -d '{"location":"NJ","maxPrice":20000,"minValue":150000,"auctionDays":30,"buyingType":"Any","propertyType":"house","minScore":60,"limit":100}' -o result.json
+          cat result.json
+      - name: Publish daily opportunity report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          COUNT=$(node -e "const x=require('./result.json'); console.log(x.count||0)")
+          DATE=$(date -u '+%Y-%m-%d')
+          node - <<'NODE' > report.md
+          const fs=require("fs");
+          const x=JSON.parse(fs.readFileSync("result.json","utf8"));
+          console.log("# FLIPIT Daily Autopilot Report\n");
+          console.log("**Date:** "+new Date().toISOString()+"\n");
+          console.log("**Live candidates:** "+(x.count||0)+"\n");
+          for(const [i,d] of (x.deals||[]).slice(0,25).entries()){
+            console.log("## "+(i+1)+". "+(d.address||"Unknown address"));
+            console.log("- Score: **"+(d.score||0)+"%**");
+            console.log("- Opening bid: **$"+Number(d.openingBid||0).toLocaleString()+"**");
+            console.log("- Estimated value: **$"+Number(d.estimatedValue||0).toLocaleString()+"**");
+            console.log("- Type: "+(d.strategy||"Auction"));
+            console.log("- Occupancy: "+(d.occupancy||"Unknown"));
+            console.log("- Listing: "+(d.sourceUrl||"N/A")+"\n");
+          }
+          NODE
+          gh issue create --title "FLIPIT Autopilot — $DATE" --body-file report.md --label "autopilot" || true
