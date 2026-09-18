@@ -1,0 +1,17 @@
+name: FLIPIT Autopilot
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run secure FLIPIT automation webhook
+        env:
+          FLIPIT_AUTOPILOT_WEBHOOK: ${{ secrets.FLIPIT_AUTOPILOT_WEBHOOK }}
+        run: |
+          test -n "$FLIPIT_AUTOPILOT_WEBHOOK" || { echo "Set FLIPIT_AUTOPILOT_WEBHOOK in repository secrets"; exit 1; }
+          curl -fsS -X POST "$FLIPIT_AUTOPILOT_WEBHOOK" \
+            -H "Content-Type: application/json" \
+            -d '{"source":"github-actions","job":"flipit-autopilot"}'
