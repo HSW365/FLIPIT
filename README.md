@@ -4,6 +4,8 @@ FLIPIT is a browser-based real-estate deal workspace by HSW365 for buyers, selle
 
 ## Current capabilities
 
+- **Lead Hunter** — free live Sheriff foreclosure sale leads (bank, tax-lien and HOA-lien cases) from county public records for 16 NJ counties plus Philadelphia/Montgomery/Lehigh PA and New Castle/Kent DE; scored by sale date, debt size, case type and adjournments; CSV export, pipeline add, owner offer-letter drafts; daily GitHub report (`.github/workflows/flipit-leads.yml`)
+
 - Deal analyzer with purchase price, ARV, repairs, holding/closing costs, desired profit, rent, operating expenses, financing inputs, projected margin, maximum allowable offer, monthly cash flow and cash-on-cash calculation
 - Full underwriting checklist for title, liens, permits, comps, repairs, financing, occupancy and local transaction rules
 - Saved deal pipeline using browser storage

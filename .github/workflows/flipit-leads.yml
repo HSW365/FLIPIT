@@ -1,0 +1,29 @@
+name: FLIPIT Lead Hunter (daily)
+on:
+  schedule:
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - name: Pull South Jersey foreclosure, tax-lien and HOA-lien leads
+        run: |
+          for i in 1 2 3; do curl -fsS --max-time 120 -X POST https://flipit-m5ig.onrender.com/api/leads/hunt -H "Content-Type: application/json" -d '{"withinDays":45,"minScore":40}' -o leads.json && break; sleep 30; done
+      - name: Publish daily lead report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node - <<'NODE' > report.md
+          const x=JSON.parse(require("fs").readFileSync("leads.json","utf8"));
+          const m=n=>n?"$"+Number(n).toLocaleString():"—";
+          console.log("# FLIPIT Lead Hunter — "+new Date().toISOString().slice(0,10)+"\n");
+          console.log("**"+x.count+" leads** scoring 40+ with a Sheriff sale in the next 45 days ("+x.counties.join(", ")+").\n");
+          console.log("| Score | Property | Sale | Debt | Type |\n|---|---|---|---|---|");
+          for(const l of x.leads.slice(0,40)) console.log(`| ${l.score} | [${l.address}](${l.sourceUrl}) | ${String(l.saleDate).split(" ")[0]} (${l.daysToSale}d) | ${m(l.approxJudgment||l.upsetAmount)} | ${l.type} |`);
+          console.log("\nFull list + CSV: https://flipit-m5ig.onrender.com (Lead Hunter tab)");
+          NODE
+          gh issue create -R "$GITHUB_REPOSITORY" --title "FLIPIT leads — $(date -u +%Y-%m-%d)" --body-file report.md
