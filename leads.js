@@ -35,7 +35,7 @@ const COUNTIES = {
 };
 const SOUTH_JERSEY = ["cumberland-nj", "atlantic-nj", "gloucester-nj", "salem-nj", "camden-nj", "capemay-nj", "burlington-nj"];
 
-const TAX_RX = /\bCUST(ODIAN)?\b|\bTAX\b|\bLIEN\b|TOWNSHIP OF|CITY OF|BOROUGH OF|TOWN OF|\bTWP\b|MUNICIPAL|PRO CAPITAL|TOWER DB|\bMTAG\b|FIG\b|US BANK CUST|CHRISTIANA TRUST.*CUST|TAX EASE|BALANCE FUND|PHOENIX FUNDING|CRESTAR CAPITAL|ACTLIEN|FNA JERSEY|RAINIER|LIEN SOLUTIONS/i;
+const TAX_RX = /\bCUST(ODIAN)?\b|\bTAX\b|\bLIEN\b|\bTOWNSHIP\b|CITY OF|BOROUGH|TOWN OF|\bTWP\b|MUNICIPAL|SCHOOL DISTRICT|\bAUTHORITY\b|TREASURER|^(THE )?[A-Z .]+ COUNTY$|PRO CAPITAL|TOWER DB|\bMTAG\b|\bFIG\b|US BANK CUST|TAX EASE|BALANCE FUND|PHOENIX FUNDING|CRESTAR CAPITAL|ACTLIEN|FNA JERSEY|RAINIER|LIEN SOLUTIONS|ELEVATION FUND|BRIGHTWOOD|TLOA|LIENCO|STONEFIELD|EBURY FUND/i;
 const HOA_RX = /CONDOMINIUM|CONDO\b|HOMEOWNERS|\bHOA\b|ASSOCIATION|ASSN\b|COMMUNITY ASS/i;
 const LENDER_RX = /BANK|TRUST|MORTGAGE|LOAN|FINANCIAL|FUNDING|CAPITAL|NATIONAL ASSOCIATION|\bN\.?A\.?\b|SAVINGS|CREDIT UNION|SERVICING|LENDING/i;
 const AGENCY_RX = /HOUSING AND MORTGAGE FINANCE|HUD\b|SECRETARY OF HOUSING|VETERANS AFFAIRS|FANNIE|FEDERAL NATIONAL|FREDDIE|FEDERAL HOME LOAN/i;
@@ -162,7 +162,7 @@ async function scrapeCounty(key, { detailLimit = 80 } = {}) {
   return data;
 }
 
-async function hunt({ counties = SOUTH_JERSEY, type = "Any", minScore = 0, maxJudgment = 0, withinDays = 120, limit = 300 } = {}) {
+async function hunt({ counties = SOUTH_JERSEY, type = "Tax lien foreclosure", minScore = 0, maxJudgment = 0, withinDays = 120, limit = 300 } = {}) {
   const keys = (Array.isArray(counties) ? counties : String(counties).split(",")).map(s => s.trim()).filter(k => COUNTIES[k]);
   const results = await pool(keys, 3, k => scrapeCounty(k));
   const errors = keys.filter((k, i) => !results[i]).map(k => COUNTIES[k].name);

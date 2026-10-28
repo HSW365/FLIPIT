@@ -1,10 +1,10 @@
 /* FLIPIT LEAD HUNTER — free public-record foreclosure, tax-lien and HOA-lien leads.
    Data: county Sheriff sale listings via the FLIPIT backend (/api/leads/*). */
 (function(){
-  const KEY="flipit_leads_v1";
+  const KEY="flipit_leads_v2";
   const SJ=["cumberland-nj","atlantic-nj","gloucester-nj","salem-nj","camden-nj","capemay-nj","burlington-nj"];
   let st;try{st=JSON.parse(localStorage.getItem(KEY))}catch{}
-  st=st||{counties:SJ,type:"Any",withinDays:60,maxJudgment:0,leads:[],ranAt:null,counted:{}};
+  st=st||{counties:null,type:"Tax lien foreclosure",withinDays:180,maxJudgment:0,leads:[],ranAt:null,counted:{}};
   const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch{}};
   const $=id=>document.getElementById(id);
   const money=n=>n?new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n):"—";
@@ -55,11 +55,11 @@ DRAFT — review with a New Jersey real estate attorney before sending. Purchase
     const s=document.createElement("style");s.textContent=css;document.head.appendChild(s);
     const sec=document.createElement("section");sec.id="leads";sec.className="panel";
     sec.innerHTML=`<div class="grid">
-<div class="card span12"><h2 style="margin-top:0">Lead Hunter</h2><p class="muted" style="margin-top:-6px">Live Sheriff foreclosure sales — bank, tax-lien and HOA-lien cases — pulled free from county public records and ranked by how motivated the owner is and how small the debt is.</p>
+<div class="card span12"><h2 style="margin-top:0">Tax Lien Hunter</h2><p class="muted" style="margin-top:-6px">Properties being foreclosed for unpaid property taxes — filed by towns, school districts and tax-lien certificate holders — pulled free from county Sheriff records. Debt is usually a small slice of the home's value, so the owner has equity to protect and the deal has room. Switch case type to see bank and HOA foreclosures too.</p>
 <label class="muted">Counties</label><div class="lh-chips" id="lhC"></div>
 <div class="lh-f"><div><label>Case type</label><select id="lhType"><option>Any</option><option>Tax lien foreclosure</option><option>HOA / condo lien</option><option>Bank foreclosure</option><option>Agency mortgage</option></select></div><div><label>Sale within (days)</label><input id="lhDays" type="number" min="1" value="${st.withinDays}"></div><div><label>Max debt owed ($, 0 = any)</label><input id="lhMax" type="number" min="0" step="5000" value="${st.maxJudgment}"></div></div>
-<div class="actions" style="margin-top:16px"><button class="btn" id="lhRun">Hunt leads</button><button class="btn ghost" id="lhCsv">Export CSV</button><button class="btn ghost" id="lhPrint">Print owner letters (top 25)</button></div>
-<div class="notice">Owner sellers (FSBO): <a href="https://www.zillow.com/vineland-nj/fsbo/" target="_blank" rel="noopener">Zillow FSBO</a> · <a href="https://www.hudhomestore.gov/" target="_blank" rel="noopener">HUD Homes</a> · <a href="https://www.auction.com/residential/nj/" target="_blank" rel="noopener">Auction.com NJ</a>. Debt shown is the Sheriff's approximate judgment / upset price, not market value — check value before offering.</div></div>
+<div class="actions" style="margin-top:16px"><button class="btn" id="lhRun">Hunt leads</button><button class="btn ghost" id="lhCsv">Export CSV</button><button class="btn ghost" id="lhPrint">Print owner letters</button></div>
+<div class="notice"><b>Buy tax-lien certificates directly:</b> NJ towns auction unpaid-tax liens online at <a href="https://www.newjerseytaxsale.com/" target="_blank" rel="noopener">NewJerseyTaxSale.com</a> (register + deposit per town). Bidding starts at 18% interest and bids down; a certificate earns interest plus up to a 6% penalty when the owner pays, or lets the holder foreclose after 2 years. Each town posts its sale list on its own site before the sale.</div><div class="notice">Owner sellers (FSBO): <a href="https://www.zillow.com/vineland-nj/fsbo/" target="_blank" rel="noopener">Zillow FSBO</a> · <a href="https://www.hudhomestore.gov/" target="_blank" rel="noopener">HUD Homes</a> · <a href="https://www.auction.com/residential/nj/" target="_blank" rel="noopener">Auction.com NJ</a>. Debt shown is the Sheriff's approximate judgment / upset price, not market value — check value before offering.</div></div>
 <div class="card span12"><div class="statgrid" id="lhStats"></div></div>
 <div class="card span12"><div id="lhOut" class="empty">Pick counties and hit Hunt leads.</div></div></div>`;
     document.querySelector("main").appendChild(sec);
@@ -68,7 +68,7 @@ DRAFT — review with a New Jersey real estate attorney before sending. Purchase
     $("lhRun").onclick=run;
     $("lhCsv").onclick=()=>{const q=new URLSearchParams({counties:st.counties.join(","),type:st.type,withinDays:st.withinDays});location.href=api()+"/api/leads/hunt.csv?"+q};
     $("lhPrint").onclick=()=>st.leads.length?printLetters(st.leads.slice(0,25)):alert("Run a hunt first.");
-    fetch(api()+"/api/leads/counties").then(r=>r.json()).then(d=>{counties=d.counties||[];chips()}).catch(()=>{counties=SJ.map(k=>({key:k,name:k}));chips()});
+    fetch(api()+"/api/leads/counties").then(r=>r.json()).then(d=>{counties=d.counties||[];if(!st.counties)st.counties=counties.map(c=>c.key);chips()}).catch(()=>{counties=SJ.map(k=>({key:k,name:k}));chips()});
     draw();
   }
   function chips(){const box=$("lhC");box.innerHTML=counties.map(c=>`<button class="lh-chip${st.counties.includes(c.key)?" on":""}" data-k="${c.key}">${esc(c.name)}</button>`).join("");box.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const k=b.dataset.k;st.counties=st.counties.includes(k)?st.counties.filter(x=>x!==k):[...st.counties,k];save();chips()})}
@@ -82,7 +82,7 @@ DRAFT — review with a New Jersey real estate attorney before sending. Purchase
   }
   function draw(){
     const L=st.leads||[],n=t=>L.filter(l=>l.type===t).length;
-    $("lhStats").innerHTML=[["Leads",L.length],["Tax-lien cases",n("Tax lien foreclosure")],["HOA-lien cases",n("HOA / condo lien")],["Sale ≤ 14 days",L.filter(l=>l.daysToSale<=14).length]].map(([a,b])=>`<div class="stat"><span class="muted">${a}</span><b style="display:block;font:600 28px var(--mono)">${b}</b></div>`).join("");
+    $("lhStats").innerHTML=[["Leads",L.length],["Tax-lien cases",n("Tax lien foreclosure")],["Debt under $50k",L.filter(l=>{const d=l.approxJudgment||l.upsetAmount;return d>0&&d<50000}).length],["Sale ≤ 14 days",L.filter(l=>l.daysToSale<=14).length]].map(([a,b])=>`<div class="stat"><span class="muted">${a}</span><b style="display:block;font:600 28px var(--mono)">${b}</b></div>`).join("");
     const out=$("lhOut");if(!L.length){out.className="empty";if(st.ranAt)out.textContent="No sales match these filters.";return}
     out.className="";
     const tc=t=>t.startsWith("Tax")?"t":t.startsWith("HOA")?"h":t.startsWith("Agency")?"a":"b";
