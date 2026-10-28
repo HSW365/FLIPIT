@@ -4,6 +4,8 @@ FLIPIT is a browser-based real-estate deal workspace by HSW365 for buyers, selle
 
 ## Current capabilities
 
+- **Deal Desk** — 8 deal playbooks (buy & flip, wholesale/assignment, quick cash sale, pre-foreclosure, Sheriff sale, tax-lien foreclosure, tax sale certificate, short sale) with step tracking and 13 auto-filled forms: LOI, as-is cash Purchase & Sale Agreement, Assignment, Memorandum of Contract, NJ foreclosure Notice of Right to Cancel, Third-Party Authorization, Short Sale Addendum, JV Agreement, Investor Deal Sheet, Cash Buyer/POF request, Sheriff Sale Bidder Worksheet, Tax Sale Certificate Worksheet, Seller Information Sheet; on-screen signatures; print/save PDF
+
 - **Lead Hunter** — free live Sheriff foreclosure sale leads (bank, tax-lien and HOA-lien cases) from county public records for 16 NJ counties plus Philadelphia/Montgomery/Lehigh PA and New Castle/Kent DE; scored by sale date, debt size, case type and adjournments; CSV export, pipeline add, owner offer-letter drafts; daily GitHub report (`.github/workflows/flipit-leads.yml`)
 
 - Deal analyzer with purchase price, ARV, repairs, holding/closing costs, desired profit, rent, operating expenses, financing inputs, projected margin, maximum allowable offer, monthly cash flow and cash-on-cash calculation
