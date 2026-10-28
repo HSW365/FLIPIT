@@ -144,7 +144,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;p
 <div class="stat"><span class="muted">Buyer matches</span><b id="dashMatches">0</b></div>
 </div></div>
 <div class="card span6"><h2>Quick actions</h2><div class="actions"><button class="btn" onclick="showTab('deal')">New deal</button><button class="btn ghost" onclick="showTab('buyers')">Find cash buyers</button><button class="btn ghost" onclick="showTab('documents')">Create contract</button><button class="btn ghost" onclick="showTab('calculator')">Open calculator</button></div></div>
-<div class="card span6" id="pricing"><h2>Plans</h2><div class="plans"><div class="plan"><span>Deal Pass, one deal</span><b>$19 once</b></div><div class="plan"><span>Pro, unlimited deals</span><b>$49 / mo</b></div><div class="plan"><span>Team, for partners</span><b>$99 / mo</b></div></div><p class="muted" style="margin-top:12px">Pay by Cash App <b>$hsw365</b> or Zelle <b>856-796-8081</b>, or buy at hsw365.co.</p></div>
+<div class="card span6" id="pricing"><h2>Plans</h2><div class="plans"><div class="plan"><span>Deal Pass, one deal</span><b>$19 once</b></div><div class="plan"><span>Pro, unlimited deals</span><b>$49 / mo</b></div><div class="plan"><span>Team, for partners</span><b>$99 / mo</b></div></div><button class="btn" style="margin-top:14px" onclick="HSWJoin.open('pro')">Join FLIPIT</button><p class="muted" style="margin-top:12px">Sign up and pay by Cash App <b>$hsw365</b> or Zelle <b>856-796-8081</b> right here. Access opens right away.</p></div>
 </div>
 </section>
 
@@ -242,7 +242,8 @@ if(!state.buyers)state.buyers=[];
 function save(){localStorage.setItem(key,JSON.stringify(state));render()}
 function money(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(n)||0)}
 function pct(n){return (Number(n)||0).toFixed(1)+'%'}
-function showTab(id){document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id))}
+const FREE_TABS=['dashboard','calculator'];
+function showTab(id){if(!FREE_TABS.includes(id)&&window.HSWJoin&&!HSWJoin.require())return;document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id))}
 document.querySelectorAll('.tab').forEach(x=>x.onclick=()=>showTab(x.dataset.tab));
 function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function getAnalysis(f){
@@ -324,5 +325,7 @@ function quick(){const arv=+qArv.value||0,rep=+qRep.value||0,ask=+qAsk.value||0,
 <script src="flipit-preservation.js"></script>
 <script src="flipit-leads.js"></script>
 <script src="flipit-desk.js"></script>
+<script src="https://hsw365.github.io/iRUN/join/hsw-join.js"></script>
+<script>HSWJoin.init({app:"flipit",name:"FLIPIT",accent:"#FF5A1F",tagline:"Run every flip from one workspace: analyze deals, find cash buyers, write the contracts.",defaultPlan:"pro"});</script>
 </body>
 </html>
