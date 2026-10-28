@@ -82,6 +82,7 @@ function parseDetail(html) {
   const judgmentTxt = (html.match(/AMOUNT OF THE JUDGMENT[^$]{0,80}\$\s*([\d,]+(?:\.\d+)?)/i) || [])[1];
   const upsetTxt = (html.match(/UPSET PRICE[^$]{0,120}\$\s*([\d,]+(?:\.\d+)?)/i) || [])[1];
   return {
+    addressFull: out["Address"] || out["Property Address"] || "",
     plaintiffFull: out["Plaintiff"] || "",
     defendantFull: out["Defendant"] || "",
     courtCase: out["Court Case #"] || "",
@@ -148,6 +149,9 @@ async function scrapeCounty(key, { detailLimit = 80 } = {}) {
   });
   const leads = upcoming.map((r, i) => {
     const l = { ...r, ...(details[i] || {}), county: c.name, countyKey: key, sourceUrl: `${BASE}/Sales/SaleDetails?PropertyId=${r.propertyId}` };
+    if (l.addressFull && /\d/.test(l.addressFull) && !/\d/.test(l.address)) l.address = l.addressFull;
+    else if (!/\d/.test(l.address) && /\d/.test(l.defendant || "") ) { const a = l.address; l.address = l.defendant; l.defendant = a; }
+    delete l.addressFull;
     if (l.plaintiffFull) l.plaintiff = l.plaintiffFull;
     if (l.defendantFull) l.defendant = l.defendantFull;
     delete l.plaintiffFull; delete l.defendantFull;
