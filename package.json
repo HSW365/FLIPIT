@@ -1,6 +1,7 @@
 {
   "name":"flipit-production-api",
   "version":"1.0.0",
+  "license": "UNLICENSED",
   "private":true,
   "engines":{"node":">=20"},
   "scripts":{"start":"node server.js"},
